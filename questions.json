@@ -1,0 +1,134 @@
+[
+    {
+        "id": 0,
+        "question": "What is the primary function of the amygdala in the brain?",
+        "answers": [
+            {
+                "answer": "Regulating motor control",
+                "isCorrect": false
+            },
+            {
+                "answer": "Processing visual information",
+                "isCorrect": false
+            },
+            {
+                "answer": "Mediating emotional responses",
+                "isCorrect": true
+            },
+            {
+                "answer": "Controlling language comprehension",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "question": "Which of the following best describes the concept of cognitive dissonance?",
+        "answers": [
+            {
+                "answer": "The tendency to forget unpleasant memories",
+                "isCorrect": false
+            },
+            {
+                "answer": "The discomfort experienced when holding conflicting beliefs or attitudes",
+                "isCorrect": true
+            },
+            {
+                "answer": "The process of forming new memories",
+                "isCorrect": false
+            },
+            {
+                "answer": "The ability to recall information from long-term memory",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "question": "What is the primary role of the hippocampus in memory formation?",
+        "answers": [
+            {
+                "answer": "Consolidating and storing long-term memories",
+                "isCorrect": true
+            },
+            {
+                "answer": "Processing sensory information",
+                "isCorrect": false
+            },
+            {
+                "answer": "Regulating emotional responses",
+                "isCorrect": false
+            },
+            {
+                "answer": "Controlling voluntary movements",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "question": "Which of the following best describes the concept of operant conditioning?",
+        "answers": [
+            {
+                "answer": "Learning through association between stimuli",
+                "isCorrect": false
+            },
+            {
+                "answer": " Learning through observation and imitation",
+                "isCorrect": false
+            },
+            {
+                "answer": "Learning through the formation of mental representations",
+                "isCorrect": false
+            },
+            {
+                "answer": "Learning through reinforcement of behaviors",
+                "isCorrect": true
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "question": "According to Erik Erikson's theory of psychosocial development, what is the primary task of adolescence?",
+        "answers": [
+            {
+                "answer": "Achieving intimacy",
+                "isCorrect": true
+            },
+            {
+                "answer": "Developing a sense of industry",
+                "isCorrect": false
+            },
+            {
+                "answer": "Forming a cohesive identity",
+                "isCorrect": true
+            },
+            {
+                "answer": "Establishing trust",
+                "isCorrect": false
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "question": "Which of the following best characterizes the concept of classical conditioning?",
+        "answers": [
+            {
+                "answer": "Learning through association between stimuli",
+                "isCorrect": true
+            },
+            {
+                "answer": "Learning through the formation of mental representations",
+                "isCorrect": false
+            },
+            {
+                "answer": " Learning through reinforcement of behaviors",
+                "isCorrect": false
+            },
+            {
+                "answer": "Learning through observation and imitation",
+                "isCorrect": false
+            }
+        ]
+    }
+]

@@ -1,0 +1,132 @@
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: sans-serif;
+    --color: rgb(218, 106, 183);
+    --color-hover: rgb(194, 81, 158);
+    --color-hover-sub: rgb(57, 54, 54);
+    --color-focus: rgb(84, 79, 79);
+    --color-disabled: rgb(138, 80, 119);
+    --color-hover-disabled: rgb(96, 57, 83);
+    --radius: .6rem;
+    --transition-time: .3s;
+}
+
+body {
+    height: 100vh;
+    background-color: rgb(42, 40, 40);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.choise {
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.choise p {
+    text-align: center;
+    padding: 1.2rem;
+    background-color: var(--color);
+    border-radius: var(--radius);
+}
+
+.choise p:first-child {
+    margin-bottom: 1rem;
+}
+
+.question {
+    position: absolute;
+    top: 0;
+    margin-top: 4rem;
+    font-size: large;
+    background-color: var(--color);
+    padding: 1rem;
+    width: 100%;
+    max-height: 40%;
+
+}
+
+.question-number {
+    position: absolute;
+    top: 0;
+    margin-top: 1.5rem;
+    left: 1rem;
+}
+
+.answer {
+    position: relative;
+    padding: 1.2rem 0;
+    list-style: none;
+    font-size: 1rem;
+    padding: 1rem;
+    transition: background-color var(--transition-time) ease-in-out;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    text-align: start;
+    width: 100%;
+}
+
+.answer::after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: .5px;
+    background-color: white;
+}
+
+.container__answers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    height: 18rem;
+}
+
+.button__next {
+    border: none;
+    width: 50%;
+    padding: .7rem .6rem;
+    font-weight: 600;
+    background-color: var(--color);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color var(--transition-time) ease-in-out;
+}
+
+.button__next_disabled {
+    cursor: not-allowed;
+    background-color: var(--color-disabled);
+}
+
+.button__next:hover {
+    background-color: var(--color-hover);
+}
+
+.button__next_disabled:hover {
+    background-color: var(--color-hover-disabled);
+}
+
+.answer:hover {
+    background-color: var(--color-hover-sub);
+}
+
+.answer:focus {
+    background-color: var(--color-focus);
+}
+
