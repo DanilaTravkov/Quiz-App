@@ -12,9 +12,10 @@ const totalQuestions = 4;
 const usedQuestionIds = new Set();
 let questionsCounter = 0;
 
+
 function getRandomUniqueQuestionId(totalQuestions) {
     if (usedQuestionIds.size === totalQuestions) {
-      usedQuestionIds.clear(); // Reset the set if all IDs have been used. Remove this
+      usedQuestionIds.clear(); // Reset the set if all IDs have been used. Remove this later
     }
   
     let randomId;
@@ -29,8 +30,9 @@ function getRandomUniqueQuestionId(totalQuestions) {
 buttonAnswers.forEach(button => {
     button.addEventListener("click", () => {
 
-        submitButton.attributes.disabled = false;
+        submitButton.removeAttribute("disabled"); // Remove the disabled attribute
         submitButton.classList.remove("button__next_disabled");
+
         if (prevClicked) 
             prevClicked.dataset.clicked = false;
         prevClicked = button;
@@ -42,11 +44,13 @@ buttonAnswers.forEach(button => {
                 // TODO: something with answers which are not selected
         });
     }); 
+});
 
-    button.addEventListener("blur", () => {
-        submitButton.attributes.disabled = true;
+document.addEventListener("click", (event) => {
+    if (!event.target.closest('.answer')) {
+        submitButton.setAttribute("disabled", true); // Set the disabled attribute
         submitButton.classList.add("button__next_disabled");
-    })
+    }
 });
 
 submitButton.addEventListener("click", () => {
@@ -68,7 +72,7 @@ async function handleQuestionSwitch() {
         const answers = document.querySelectorAll(".answer");
         const question = document.querySelector(".question");
 
-        const response = await fetch("questions.json");
+        const response = await fetch("psychology.json");
         const data = await response.json();
 
         question.innerHTML = data[randomQuestionId].question;
