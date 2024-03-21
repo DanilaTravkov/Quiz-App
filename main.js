@@ -3,6 +3,7 @@
 // handle choosing an answer
 const buttonAnswers = document.querySelectorAll("[data-clicked]");
 const submitButton = document.querySelector(".button__next");
+const submitButtonBefore = window.getComputedStyle(submitButton, '::before');
 const counterElement = document.querySelector(".question-number");
 let answer;
 let prevClicked;
@@ -11,7 +12,7 @@ let prevClicked;
 const totalQuestions = 4;
 const usedQuestionIds = new Set();
 let questionsCounter = 0;
-
+let countCorrectAnswers = 0;
 
 function getRandomUniqueQuestionId(totalQuestions) {
     if (usedQuestionIds.size === totalQuestions) {
@@ -29,35 +30,59 @@ function getRandomUniqueQuestionId(totalQuestions) {
 
 buttonAnswers.forEach(button => {
     button.addEventListener("click", () => {
-
-        submitButton.removeAttribute("disabled"); // Remove the disabled attribute
         submitButton.classList.remove("button__next_disabled");
+        submitButton.classList.add("answer_selected");
 
         if (prevClicked) 
             prevClicked.dataset.clicked = false;
+        
         prevClicked = button;
         button.dataset.clicked = true;
-        // TODO: something with the selected answers
         answer = button.textContent;
+
         const buttonsWithFalse = document.querySelectorAll('.answer:not([data-clicked="true"])');
-            buttonsWithFalse.forEach(button => {
-                // TODO: something with answers which are not selected
+        buttonsWithFalse.forEach(button => {
+            
         });
     }); 
 });
 
-document.addEventListener("click", (event) => {
-    if (!event.target.closest('.answer')) {
-        submitButton.setAttribute("disabled", true); // Set the disabled attribute
-        submitButton.classList.add("button__next_disabled");
-    }
-});
+// document.addEventListener("click", (event) => {
+//     if (!event.target.closest('.answer')) {
+//         submitButton.setAttribute("disabled", true);
+//         submitButton.classList.add("button__next_disabled");
+//         submitButton.classList.remove("answer_selected");
+//     }
+// });
 
 submitButton.addEventListener("click", () => {
-    // TODO: handle when answer is submitted (work with answer variable)
-    handleQuestionSwitch();
-    
-})
+    if (submitButton.getAttribute("type") === 'text') {
+        const answer = document.querySelector(".answer[data-clicked='true']");
+        if (answer) {
+            if (answer.dataset.isCorrect === "true") {
+                answer.classList.add("correct-answer");
+            } else {
+                answer.classList.add("wrong-answer");
+                const correctAnswer = document.querySelector(".answer[data-isCorrect='true']");
+                if (correctAnswer) {
+                    correctAnswer.classList.add("correct-answer");
+                }
+            }
+            submitButton.setAttribute("type", "submit");
+            submitButton.innerHTML = "Next";
+        }
+    } else if (submitButton.getAttribute("type") === 'submit') {
+        const answer = document.querySelector(".answer[data-clicked='true']");
+        if (answer) {
+            answer.classList.remove("wrong-answer", "correct-answer");
+            answer.dataset.clicked = "false";
+        }
+        console.log("button type submit was pressed")
+        handleQuestionSwitch();
+    } else {
+        console.log("wtf happend to this button")
+    }
+});
 
 // handle switching between questions
 async function handleQuestionSwitch() {
@@ -66,10 +91,14 @@ async function handleQuestionSwitch() {
         console.log("Poll has been completed!")
         return;
     }
+
+    // submitButton.setAttribute("disabled", true);
+    console.log(submitButton.getAttribute("disabled"))
+    submitButton.setAttribute("type", "text");
+    submitButton.innerHTML = "Submit";
+
     try {
         const randomQuestionId = getRandomUniqueQuestionId(totalQuestions);
-        // console.log(randomQuestionId);
-        const answers = document.querySelectorAll(".answer");
         const question = document.querySelector(".question");
 
         const response = await fetch("psychology.json");
@@ -77,17 +106,14 @@ async function handleQuestionSwitch() {
 
         question.innerHTML = data[randomQuestionId].question;
         for (let i = 0; i < 4; i++) {
-            answers[i].innerHTML = data[randomQuestionId].answers[i].answer;
+            buttonAnswers[i].innerHTML = data[randomQuestionId].answers[i].answer;
+            buttonAnswers[i].dataset.isCorrect = data[randomQuestionId].answers[i].isCorrect;
         };
         questionsCounter++;
-        counterElement.innerHTML = `Question ${questionsCounter}`
-        // console.log(randomQuestionId)
+        counterElement.innerHTML = `Question ${questionsCounter}`        
     } catch (error) {
         console.log("Error fetching json data: ", error);
     }
 };
 
 handleQuestionSwitch();
-
-
-

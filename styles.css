@@ -97,6 +97,13 @@ ul {
     height: 20rem;
 }
 
+.container__submit-button {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    width: 100%;
+}
+
 .button__next {
     border: none;
     width: 50%;
@@ -107,6 +114,30 @@ ul {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color var(--transition-time) ease-in-out;
+    transition: opacity var(--transition-time) ease-in-out;
+}
+
+.button__next:hover::before {
+    opacity: 1;
+    content: "Choose an answer";
+    position: absolute;
+    bottom: 3rem;
+    right: 2.5rem;
+    font-size: .7rem;
+    transition: opacity var(--transition-time) ease-in-out;
+}
+
+.button__next.answer_selected::before {
+    opacity: 0;
+    transition: opacity var(--transition-time) ease-in-out;
+}
+
+.correct-answer {
+    background-color: green;
+}
+
+.wrong-answer {
+    background-color: red;
 }
 
 .button__next_disabled {
