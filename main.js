@@ -9,7 +9,7 @@ let answer;
 let prevClicked;
 
 // This is for always getting a new question after each concurrent request to questions.json.
-const totalQuestions = 4;
+const totalQuestions = 6;
 const usedQuestionIds = new Set();
 let questionsCounter = 0;
 let countCorrectAnswers = 0;
@@ -61,23 +61,42 @@ submitButton.addEventListener("click", () => {
         if (answer) {
             if (answer.dataset.isCorrect === "true") {
                 answer.classList.add("correct-answer");
+                countCorrectAnswers++;
             } else {
                 answer.classList.add("wrong-answer");
-                const correctAnswer = document.querySelector(".answer[data-isCorrect='true']");
+                const correctAnswer = document.querySelector(".answer[data-is-correct='true']");
                 if (correctAnswer) {
                     correctAnswer.classList.add("correct-answer");
                 }
             }
+            if (questionsCounter === totalQuestions) {
+                buttonAnswers.forEach(answerButton => {
+                    answerButton.setAttribute("disabled", true);
+                });
+                submitButton.innerHTML = "Finish"
+                counterElement.innerHTML = `Your score is: ${countCorrectAnswers} / 6`
+                console.log("Poll has been completed!")
+                // console.log("Total score: ", countCorrectAnswers)
+                return;
+                // TODO: display results
+            }
+            buttonAnswers.forEach(answerButton => {
+                answerButton.setAttribute("disabled", true);
+            });
             submitButton.setAttribute("type", "submit");
             submitButton.innerHTML = "Next";
         }
     } else if (submitButton.getAttribute("type") === 'submit') {
         const answer = document.querySelector(".answer[data-clicked='true']");
+        const correctAnswer = document.querySelector(".answer[data-is-correct='true']");
         if (answer) {
             answer.classList.remove("wrong-answer", "correct-answer");
+            correctAnswer.classList.remove("correct-answer");
             answer.dataset.clicked = "false";
         }
-        console.log("button type submit was pressed")
+        buttonAnswers.forEach(answerButton => {
+            answerButton.removeAttribute("disabled");
+        });
         handleQuestionSwitch();
     } else {
         console.log("wtf happend to this button")
@@ -86,14 +105,7 @@ submitButton.addEventListener("click", () => {
 
 // handle switching between questions
 async function handleQuestionSwitch() {
-    if (questionsCounter == totalQuestions) {
-        // TODO: display results
-        console.log("Poll has been completed!")
-        return;
-    }
 
-    // submitButton.setAttribute("disabled", true);
-    console.log(submitButton.getAttribute("disabled"))
     submitButton.setAttribute("type", "text");
     submitButton.innerHTML = "Submit";
 
@@ -115,5 +127,14 @@ async function handleQuestionSwitch() {
         console.log("Error fetching json data: ", error);
     }
 };
+
+// alert user of loss of data
+
+// window.addEventListener("beforeunload", function(event) {
+//     event.preventDefault();
+//     event.returnValue = '';
+//     const confirmationMessage = 'Are you sure you want to leave? Your data may be lost!';
+//     return confirmationMessage;
+// })
 
 handleQuestionSwitch();
